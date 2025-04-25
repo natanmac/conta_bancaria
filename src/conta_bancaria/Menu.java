@@ -2,6 +2,7 @@ package conta_bancaria;
 
 import java.util.Scanner;
 
+import conta_bancaria.model.Conta;
 import conta_bancaria.util.Cores;
 
 public class Menu {
@@ -11,6 +12,15 @@ public class Menu {
 		Scanner leia = new Scanner(System.in);
 
 		int opcao;
+		
+		Conta c1 = new Conta(1, 123, 1, 500, "Natan");
+		c1.visualizar();
+		
+		c1.sacar(100);
+		c1.visualizar();
+		
+		c1.depositar(1000);
+		c1.visualizar();
 
 		while (true) {
 
@@ -38,7 +48,7 @@ public class Menu {
 			opcao = leia.nextInt();
 
 			if (opcao == 9) {
-				System.out.println("\nBanco Taxa Amiga - O seu Futuro começa aqui!");
+				System.out.println("\nBanco Taxa Amiga - Mais que um banco, seu amigo!");
 				sobre();
                  leia.close();
 				System.exit(0);
@@ -86,11 +96,11 @@ public class Menu {
     
 	public static void sobre() {
 		System.out.println("\n*********************************************************");
-		System.out.println("Projeto Desenvolvido por: Natan Macedo");
-		System.out.println("Generation Brasil - generation@generation.org");
-		System.out.println("github.com/conteudoGeneration");
-		System.out.println("https://github.com/natanmac/conta_bancaria");
-		System.out.println("*********************************************************");
+		System.out.println("Projeto Desenvolvido por: Natan Macedo                     ");
+		System.out.println("Generation Brasil - generation@generation.org              ");
+		System.out.println("github.com/conteudoGeneration                              ");
+		System.out.println("https://github.com/natanmac/conta_bancaria                 ");
+		System.out.println("***********************************************************");
 	}
 
 }
