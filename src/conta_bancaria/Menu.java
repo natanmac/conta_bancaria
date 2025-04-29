@@ -2,7 +2,6 @@ package conta_bancaria;
 
 import java.util.Scanner;
 
-import conta_bancaria.model.Conta;
 import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
@@ -14,16 +13,6 @@ public class Menu {
 		Scanner leia = new Scanner(System.in);
 
 		int opcao;
-		
-		//Testes contas
-		Conta c1 = new Conta(1, 123, 1, 500, "Natan");
-		c1.visualizar();
-		
-		c1.sacar(100);
-		c1.visualizar();
-		
-		c1.depositar(1000);
-		c1.visualizar();
 		
 		//Teste Conta corrente
 		ContaCorrente cc1 = new ContaCorrente(2, 456, 1, 600000, "Natan Conta Corrente", 60000);
