@@ -3,6 +3,8 @@ package conta_bancaria;
 import java.util.Scanner;
 
 import conta_bancaria.model.Conta;
+import conta_bancaria.model.ContaCorrente;
+import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
 
 public class Menu {
@@ -13,6 +15,7 @@ public class Menu {
 
 		int opcao;
 		
+		//Testes contas
 		Conta c1 = new Conta(1, 123, 1, 500, "Natan");
 		c1.visualizar();
 		
@@ -21,7 +24,21 @@ public class Menu {
 		
 		c1.depositar(1000);
 		c1.visualizar();
-
+		
+		//Teste Conta corrente
+		ContaCorrente cc1 = new ContaCorrente(2, 456, 1, 600000, "Natan Conta Corrente", 60000);
+		cc1.visualizar();
+		
+		cc1.sacar(659000);
+		cc1.visualizar();
+		
+		cc1.depositar(50000);
+		cc1.visualizar();
+		
+		//Testes Conta Poupança
+		ContaPoupanca cp1 = new ContaPoupanca(3, 256, 2, 1000, "Natan Conta Poupança", 29);
+		cp1.visualizar();
+		
 		while (true) {
 
 			System.out.println(Cores.ANSI_BLUE_BACKGROUND_BRIGHT);
