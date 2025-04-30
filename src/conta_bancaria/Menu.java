@@ -1,7 +1,9 @@
 package conta_bancaria;
 
+import java.io.IOException;
 import java.util.Scanner;
 
+import conta_bancaria.controller.ContaController;
 import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
@@ -11,22 +13,19 @@ public class Menu {
 	public static void main(String[] args) {
 		
 		Scanner leia = new Scanner(System.in);
+		
+		ContaController contas = new ContaController();
 
-		int opcao;
+		int opcao, numero, agencia, tipo, aniversario;
+		String titular;
+		float saldo, limite;
 		
-		//Teste Conta corrente
-		ContaCorrente cc1 = new ContaCorrente(2, 456, 1, 600000, "Natan Conta Corrente", 60000);
-		cc1.visualizar();
+		//Dados para teste
+		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, 1000.00f, "João da Silva", 100.00f);
+		contas.cadastrar(cc1);
 		
-		cc1.sacar(659000);
-		cc1.visualizar();
-		
-		cc1.depositar(50000);
-		cc1.visualizar();
-		
-		//Testes Conta Poupança
-		ContaPoupanca cp1 = new ContaPoupanca(3, 256, 2, 1000, "Natan Conta Poupança", 29);
-		cp1.visualizar();
+		ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 123, 2, 1000.00f, "Maria da Silva", 12);
+		contas.cadastrar(cp1);
 		
 		while (true) {
 
@@ -63,38 +62,81 @@ public class Menu {
 			switch (opcao) {
 				case 1:
 					System.out.println("Criar Conta\n\n");
-
+					
+					System.out.println("Digite o número da agência: ");
+					agencia = leia.nextInt();
+					
+					System.out.println("Digite o nome do titular: ");
+					leia.skip("\\R");
+					titular = leia.nextLine();
+					
+					System.out.println("Digite o tipo da conta (1 - CC | 2 - CP): ");
+					tipo = leia.nextInt();
+					
+					System.out.println("Digite o saldo inicial da conta: ");
+					saldo = leia.nextFloat();
+					
+					switch(tipo) {
+						case 1 ->{
+							System.out.println("Digite o limite da conta: ");
+							limite = leia.nextFloat();
+							contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, saldo, titular, limite));
+						}
+						case 2 ->{
+							System.out.println("Digite o aniversário da conta: ");
+							aniversario = leia.nextInt();
+							contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, saldo, titular, aniversario));
+						}
+					}
+					
+					keyPress();
 					break;
 				case 2:
 					System.out.println("Listar todas as Contas\n\n");
-
+					
+					contas.listarTodas();
+					
+					keyPress();
 					break;
 				case 3:
 					System.out.println("Consultar dados da Conta - por número\n\n");
+					
+					System.out.println("Digite o número da conta: ");
+					numero = leia.nextInt();
+					
+					contas.procurarPorNumero(numero);
 
+					keyPress();
 					break;
 				case 4:
 					System.out.println("Atualizar dados da Conta\n\n");
 
+					keyPress();
 					break;
 				case 5:
 					System.out.println("Apagar a Conta\n\n");
 
+					keyPress();
 					break;
 				case 6:
 					System.out.println("Saque\n\n");
 
+					keyPress();
 					break;
 				case 7:
 					System.out.println("Depósito\n\n");
 
+					keyPress();
 					break;
 				case 8:
 					System.out.println("Transferência entre Contas\n\n");
 
+					keyPress();
 					break;
 				default:
 					System.out.println("\nOpção Inválida!\n");
+					
+					keyPress();
 					break;
 			}
 		}
@@ -107,6 +149,20 @@ public class Menu {
 		System.out.println("github.com/conteudoGeneration                              ");
 		System.out.println("https://github.com/natanmac/conta_bancaria                 ");
 		System.out.println("***********************************************************");
+	}
+	
+	public static void keyPress() {
+		 
+		try {
+ 
+			System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para Continuar...");
+			System.in.read();
+ 
+		} catch (IOException e) {
+ 
+			System.err.println("Ocorreu um erro ao tentar ler o teclado");
+ 
+		}
 	}
 
 }
