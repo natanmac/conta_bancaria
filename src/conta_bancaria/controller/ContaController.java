@@ -1,5 +1,6 @@
 package conta_bancaria.controller;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -68,19 +69,48 @@ public class ContaController implements ContaRepository {
 
 	@Override
 	public void sacar(int numero, float valor) {
-		// TODO Auto-generated method stub
+		//NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		
+		Optional<Conta> conta = buscarNaCollection(numero);
+		
+		if(conta.isPresent()) {
+			if(conta.get().sacar(valor) == true) {
+				System.out.printf("\nO saque de R$%.2f, foi efetuado com sucesso na conta de número %d", valor, numero);
+			}
+		} else {
+			System.out.printf("\nA conta número %d não foi encontrada!", numero);
+		}
 		
 	}
 
 	@Override
 	public void depositar(int numero, float valor) {
-		// TODO Auto-generated method stub
+		//NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		
+		Optional<Conta> conta = buscarNaCollection(numero);
+		
+		if(conta.isPresent()) {
+			conta.get().depositar(valor);
+			System.out.printf("\nDeposito no valor de R$%.2f, foi efetuado com sucesso na conta de número %d", valor, numero);
+		} else {
+			System.out.printf("\nA conta número %d não foi encontrada!", numero);
+		}
 		
 	}
 
 	@Override
 	public void transferir(int numeroOrigem, int numeroDestino, float valor) {
-		// TODO Auto-generated method stub
+		Optional<Conta> contaOrigem = buscarNaCollection(numeroOrigem);
+		Optional<Conta> contaDestino = buscarNaCollection(numeroDestino);
+		
+		if(contaOrigem.isPresent() && contaDestino.isPresent()) {
+			if(contaOrigem.get().sacar(valor) == true) {
+				contaDestino.get().depositar(valor);
+				System.out.printf("\nTransferência no valor de R$%.2f, da conta %d foi efetuado com sucesso na conta de número %d", valor, numeroOrigem, numeroDestino);
+			}
+		} else {
+			System.out.printf("\nA conta número %d não foi encontrada!", numero);
+		}
 		
 	}
 	
